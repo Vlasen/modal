@@ -119,13 +119,7 @@ const isReasons = () => {
       class="modal-overlay" ref="overlay"
       @click.self="$emit('onClose')" 
     >
-      <Transition :name="isMobile ? 'modal-slide' : 'modal-fade'" appear
-      @before-enter="() => console.log('Before enter')"
-  @enter="() => console.log('Enter')"
-  @after-enter="() => console.log('After enter')"
-  @before-leave="() => console.log('Before leave')"
-  @leave="() => console.log('Leave')"
-  @after-leave="() => console.log('After leave')">
+      <Transition :name="isMobile ? 'modal-slide' : 'modal-fade'" appear>
         <!-- Модальное окно -->
         <div class="modal" ref="modal" 
           @touchstart="startSwipe" 
