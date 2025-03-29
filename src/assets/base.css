@@ -1,0 +1,12 @@
+:root {
+  --light-color: rgb(255, 255, 255);
+  --dark-white: rgba(217, 217, 217, 1);
+  --bright-color: rgb(205, 16, 255);
+  --dark-bright-color: rgb(154, 13, 193);
+  --dark-gray: rgb(21, 26, 34);
+  --gray: rgba(52, 51, 48, 1);
+  --light-grey: rgb(88, 89, 91);
+  --button-text-color: rgb(0, 0, 0);
+  --success-color: rgb(112, 239, 112);
+  --error-color: rgb(248, 126, 126);
+}
