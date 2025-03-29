@@ -3,12 +3,21 @@ import { ref, onMounted, computed } from 'vue'
 
 const props = defineProps({
   isOpen: Boolean,
-  title: [String, Object],
+  title: String,
   content:  [String, Object],
   selectedReasons: Object,
 });
 const emit = defineEmits(['onClose']);
 const isMobile = ref(false);
+
+// Разделение заголовка на две переменные
+function splitTitle(title) {
+  const match = title.match(/^(.*?)(№.*)$/);
+  if (!match) return { title: title, orderNubmber: "" }; // Если не найдено, возвращаем исходный заголовок
+
+  return { title: match[1].trim(), orderNubmber: match[2].trim() };
+};
+const { title, orderNubmber } = splitTitle(props.title);
 
 // Проверка устройства
 const checkIfMobile = () => {
@@ -137,8 +146,10 @@ const isReasons = () => {
           </div>
 
           <!-- Заголовок -->
-          <component v-if="typeof title === 'object'" :is="title"/>
-          <h1 v-else>{{ title }}</h1>
+           <div class="modal__title">
+            <h1>{{ title }}</h1> 
+            <h2>{{ orderNubmber }}</h2>
+          </div>
           
           <!-- Контент -->
           <component v-if="typeof content === 'object'" :is="content"/>

@@ -44,10 +44,7 @@ function handleCheckboxChange(event, reason) {
 }
 
 // Генерируем заголовок
-const title = h('div', { class: 'modal__title' }, [
-  h('h1', 'Отказаться от выполнения заказа'),
-  h('h2', `№ ${orderNumber}`)
-]);
+const title = `Отказаться от выполнения заказа № ${orderNumber}`
 
 // Генерируем чекбоксы
 const checkboxesVNode = h('div', { class: 'checkbox-group' }, reasons.value.map(reason =>
