@@ -12,10 +12,11 @@ const isMobile = ref(false);
 
 // Проверка устройства
 const checkIfMobile = () => {
-  isMobile.value =
-    /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent) || // Проверка User-Agent
-    navigator.maxTouchPoints > 1 || // Проверка мультитача
-    window.matchMedia('(pointer: coarse)').matches; // Проверка тачскрина
+  const isUserAgentMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent); // Проверка User-Agent
+  const isTouchDevice = navigator.maxTouchPoints > 1 || window.matchMedia('(pointer: coarse)').matches; // Проверка мультитача и тачскрина
+  const isSmallScreen = window.innerWidth <= 768; // Проверка размера экрана
+
+  isMobile.value = (isUserAgentMobile || isTouchDevice) && isSmallScreen;
 };
 
 // Обработчик изменения размера экрана
@@ -118,7 +119,13 @@ const isReasons = () => {
       class="modal-overlay" ref="overlay"
       @click.self="$emit('onClose')" 
     >
-      <Transition :name="isMobile ? 'modal-slide' : 'modal-fade'" appear>
+      <Transition :name="isMobile ? 'modal-slide' : 'modal-fade'" appear
+      @before-enter="() => console.log('Before enter')"
+  @enter="() => console.log('Enter')"
+  @after-enter="() => console.log('After enter')"
+  @before-leave="() => console.log('Before leave')"
+  @leave="() => console.log('Leave')"
+  @after-leave="() => console.log('After leave')">
         <!-- Модальное окно -->
         <div class="modal" ref="modal" 
           @touchstart="startSwipe" 
@@ -194,6 +201,7 @@ const isReasons = () => {
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     box-shadow: 0 0 25px rgba(0, 0, 0, .3);
     box-sizing: border-box;
+    z-index: 11;
 
     .modal__close-btn-container {
       display: flex;
@@ -260,8 +268,8 @@ const isReasons = () => {
   }
   .modal-slide-leave-from,
   .modal-slide-enter-to {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(0) !important;
+    opacity: 1 !important;
   }
 }
 
