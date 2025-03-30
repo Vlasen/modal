@@ -23,7 +23,7 @@ const { title, orderNubmber } = splitTitle(props.title);
 const checkIfMobile = () => {
   const isUserAgentMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent); // Проверка User-Agent
   const isTouchDevice = navigator.maxTouchPoints > 1 || window.matchMedia('(pointer: coarse)').matches; // Проверка мультитача и тачскрина
-  const isSmallScreen = window.innerWidth <= 768; // Проверка размера экрана
+  const isSmallScreen = window.innerWidth <= 1024; // Проверка размера экрана
 
   isMobile.value = (isUserAgentMobile || isTouchDevice) && isSmallScreen;
 };
