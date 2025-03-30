@@ -45,6 +45,8 @@ const isSwiping = ref(false); // Флаг свайпа
 
 // Вызывается при первом касании экрана
 const startSwipe = (event) => { 
+  if (event.target.closest('.checkbox-group')) return; // Отключение свайпа на checkbox-group (элемент со скроллом)
+
   startY.value = event.touches[0].clientY; // Сохраняем начальное положение пальца по оси Y
   currentY.value = startY.value; // Устанавливаем текущую координату в координату начала свайпа
   isSwiping.value = true;
@@ -146,7 +148,7 @@ const isReasons = () => {
           </div>
 
           <!-- Заголовок -->
-           <div class="modal__title">
+          <div class="modal__title">
             <h1>{{ title }}</h1> 
             <h2>{{ orderNubmber }}</h2>
           </div>
